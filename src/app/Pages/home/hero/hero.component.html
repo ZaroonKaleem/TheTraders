@@ -1,0 +1,139 @@
+<div class="hero-section bg-black overflow-hidden min-h-screen flex items-center relative">
+  <!-- Animated background elements -->
+  <div class="hero-bg-elements absolute inset-0 z-0">
+    <!-- Animated trading chart lines -->
+    <div class="absolute top-0 left-0 w-full h-full opacity-20">
+      <svg viewBox="0 0 1200 600" class="w-full h-full">
+        <path 
+          d="M0,450 C150,370 300,530 450,450 C600,370 750,530 900,450 C1050,370 1200,530 1200,450" 
+          stroke="#facc15" 
+          stroke-width="2" 
+          fill="none"
+          class="chart-line-pulse"
+        ></path>
+        <path 
+          d="M0,400 C150,480 300,320 450,400 C600,480 750,320 900,400 C1050,480 1200,320 1200,400" 
+          stroke="#facc15" 
+          stroke-width="2" 
+          fill="none"
+          class="chart-line-pulse chart-line-delay"
+        ></path>
+      </svg>
+    </div>
+    
+    <!-- Floating currency symbols -->
+    <div *ngFor="let symbol of symbols" 
+         class="absolute text-yellow-400 opacity-10 text-4xl floating-symbol"
+         [style.left]="symbol.left"
+         [style.top]="symbol.top"
+         [style.animationDuration]="symbol.duration + 's'">
+      {{symbol.char}}
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="relative z-10 container mx-auto px-6 py-20">
+    <div class="flex flex-col lg:flex-row items-center">
+      <!-- Text content -->
+      <div class="lg:w-1/2 mb-16 lg:mb-0">
+        <h1 class="text-5xl md:text-7xl font-bold text-yellow-400 mb-6 leading-tight">
+          DOMINATE THE <span class="text-white">MARKETS</span>
+        </h1>
+        <p class="text-gray-300 text-xl mb-10 max-w-lg">
+          Join THE TRADERS community and unlock premium trading signals, real-time analytics, and expert strategies to maximize your profits.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button class="primary-button">
+            Start Trading Now
+          </button>
+          <button class="secondary-button">
+            Learn More
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated trading card -->
+      <div class="lg:w-1/2 relative">
+        <div class="relative max-w-md mx-auto">
+          <!-- Trading card with animated price ticker -->
+          <div class="trading-card">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <h3 class="text-yellow-400 font-bold text-2xl">BTC/USDT</h3>
+                <p class="text-gray-400">Bitcoin / Tether</p>
+              </div>
+              <div class="text-right">
+                <div class="text-white text-3xl font-bold" [ngClass]="{'text-green-400': isPriceUp, 'text-red-400': !isPriceUp}">
+                  {{currentPrice | currency:'USD':'symbol':'1.2-2'}}
+                </div>
+                <div class="text-sm" [ngClass]="{'text-green-400': isPriceUp, 'text-red-400': !isPriceUp}">
+                  <span *ngIf="isPriceUp">+</span>{{priceChangePercent}}%
+                </div>
+              </div>
+            </div>
+            
+            <!-- Mini chart -->
+            <div class="h-40 mb-6 relative">
+              <svg viewBox="0 0 300 120" class="w-full h-full">
+                <path 
+                  [attr.d]="chartPath" 
+                  stroke="#facc15" 
+                  stroke-width="2" 
+                  fill="none"
+                ></path>
+                <path 
+                  [attr.d]="chartPath" 
+                  stroke="url(#chartGradient)" 
+                  stroke-width="3" 
+                  fill="url(#areaGradient)"
+                  class="chart-area"
+                ></path>
+                <defs>
+                  <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#facc15" />
+                    <stop offset="100%" stop-color="#f59e0b" />
+                  </linearGradient>
+                  <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#facc15" stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="#facc15" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p class="text-gray-400 text-sm">24h High</p>
+                <p class="text-white font-medium">{{highPrice | currency:'USD':'symbol':'1.2-2'}}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">24h Low</p>
+                <p class="text-white font-medium">{{lowPrice | currency:'USD':'symbol':'1.2-2'}}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">24h Vol</p>
+                <p class="text-white font-medium">{{volume | number:'1.0-0'}}</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating elements around card -->
+          <div class="floating-dot-1"></div>
+          <div class="floating-ring-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scrolling ticker at bottom -->
+  <div class="market-ticker">
+    <div class="ticker-content">
+      <span class="ticker-label">LIVE MARKET DATA:</span>
+      <span *ngFor="let ticker of tickers" class="ticker-item">
+        {{ticker.symbol}} <span class="font-bold" [ngClass]="{'text-green-400': ticker.change > 0, 'text-red-400': ticker.change < 0}">{{ticker.price | currency:'USD':'symbol':'1.2-2'}}</span>
+        <span [ngClass]="{'text-green-400': ticker.change > 0, 'text-red-400': ticker.change < 0}"> ({{ticker.change > 0 ? '+' : ''}}{{ticker.change}}%) </span>
+      </span>
+    </div>
+  </div>
+</div>

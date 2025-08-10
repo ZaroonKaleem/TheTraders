@@ -1,0 +1,148 @@
+/* Hero Section Base Styles */
+.hero-section {
+  min-height: 100vh;
+}
+
+/* Animated Elements */
+.chart-line-pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.chart-line-delay {
+  animation-delay: 0.5s;
+}
+
+.floating-symbol {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-dot-1 {
+  position: absolute;
+  top: -1.5rem;
+  left: -1.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: #facc15;
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.floating-ring-1 {
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #facc15;
+  border-radius: 50%;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Trading Card */
+.trading-card {
+  background-color: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(250, 204, 21, 0.2);
+}
+
+.chart-area {
+  opacity: 0.7;
+}
+
+/* Buttons */
+.primary-button {
+  background-color: #facc15;
+  color: #000;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(250, 204, 21, 0.3);
+}
+
+.primary-button:hover {
+  background-color: #f59e0b;
+  transform: scale(1.05);
+}
+
+.secondary-button {
+  border: 2px solid #facc15;
+  color: #facc15;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+  background-color: rgba(250, 204, 21, 0.1);
+}
+
+/* Market Ticker */
+.market-ticker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(250, 204, 21, 0.1);
+  padding: 0.75rem 0;
+  overflow: hidden;
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+}
+
+.ticker-label {
+  color: #facc15;
+  font-weight: bold;
+  margin: 0 2rem;
+}
+
+.ticker-item {
+  color: white;
+  margin: 0 2rem;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}

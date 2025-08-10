@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+body {
+  @apply bg-[#000000] text-gray-100 min-h-screen;
+}
+
+:root {
+  --text-primary: #d1d1d1;
+  /* Primary Color (Rich Black) */
+  --primary-50: #e6e8e9;
+  --primary-100: #c0c5c8;
+  --primary-200: #969fa3;
+  --primary-300: #6b797e;
+  --primary-400: #4c5c63;
+  --primary-500: #101820; /* Your Rich Black */
+  --primary-600: #0e151d;
+  --primary-700: #0c1118;
+  --primary-800: #090e13;
+  --primary-900: #05080b;
+
+  /* Secondary Color (Vivid Yellow) */
+  --secondary-50: #fffef2;
+  --secondary-100: #fffbd6;
+  --secondary-200: #fff9b8;
+  --secondary-300: #fff699;
+  --secondary-400: #fff482;
+  --secondary-500: #FEE715; /* Your Vivid Yellow */
+  --secondary-600: #fee513;
+  --secondary-700: #fee310;
+  --secondary-800: #fee10c;
+  --secondary-900: #fddd06;
+}
+
+/* Create utility classes for your colors */
+@layer utilities {
+  /* Primary Color Utilities */
+  .bg-primary { background-color: var(--primary-500); }
+  .bg-primary-500 { background-color: var(--primary-500); }
+  .bg-primary-600 { background-color: var(--primary-600); }
+  .text-primary { color: var(--text-primary); }
+  .text-primary-600 { color: var(--primary-600); }
+  .border-primary { border-color: var(--primary-500); }
+
+  /* Secondary Color Utilities */
+  .bg-secondary { background-color: var(--secondary-500); }
+  .bg-secondary-500 { background-color: var(--secondary-500); }
+  .bg-secondary-600 { background-color: var(--secondary-600); }
+  .text-secondary { color: var(--secondary-500); }
+  .text-secondary-600 { color: var(--secondary-600); }
+  .border-secondary { border-color: var(--secondary-500); }
+
+  /* Special contrast utilities */
+  .text-on-primary { color: white; } /* White text on Rich Black */
+  .text-on-secondary { color: var(--primary-500); } /* Rich Black text on Vivid Yellow */
+}

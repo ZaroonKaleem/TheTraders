@@ -1,0 +1,25 @@
+/* student-results.component.scss */
+.results-section {
+  .comparison-section {
+    perspective: 1000px;
+    
+    > div > div {
+      transform-style: preserve-3d;
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      &[class*="translate-y-10"] {
+        opacity: 0;
+        transform: translateY(2rem) rotateX(10deg);
+      }
+    }
+  }
+
+  .pnl-card {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    &:hover {
+      transform: translateY(-0.5rem) scale(1.02);
+      box-shadow: 0 1rem 3rem rgba(251, 191, 36, 0.1);
+    }
+  }
+}
