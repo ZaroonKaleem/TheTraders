@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { StudentResultsComponent } from "../student-results/student-results.component";
 
 @Component({
   selector: 'app-courses',
   imports: [
     CommonModule,
-    StudentResultsComponent
 ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
+
+  constructor(private cdr: ChangeDetectorRef) { }
+  
   // Floating coins animation
   coins = [
     { symbol: '₿', left: '10%', top: '20%' },
@@ -141,27 +143,57 @@ export class CoursesComponent implements OnInit {
   days = '03';
   hours = '12';
   minutes = '45';
+  seconds = '00';
   spotsLeft = 4;
+  private countdownInterval: any;
 
   ngOnInit(): void {
+        this.startCountdown();
     // Update countdown every minute
     setInterval(() => this.updateCountdown(), 60000);
     this.updateCountdown();
   }
 
-  updateCountdown() {
-    // Set your course closing date
+   ngOnDestroy(): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+  }
+
+  startCountdown() {
+    // Clear any existing interval
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+
+    // Update immediately and then every second
+    this.updateCountdown();
+    this.countdownInterval = setInterval(() => this.updateCountdown(), 1000);
+  }
+
+ updateCountdown() {
+    // Set your course closing date (3 days from now at 12:45 PM)
     const closingDate = new Date();
     closingDate.setDate(closingDate.getDate() + 3);
     closingDate.setHours(12, 45, 0, 0);
     
     const now = new Date();
-    const diff = closingDate.getTime() - now.getTime();
+    let diff = closingDate.getTime() - now.getTime();
     
+    // Prevent negative values
+    if (diff <= 0) {
+      diff = 0;
+      clearInterval(this.countdownInterval);
+    }
+    
+    // Calculate time units
     this.days = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
     this.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
     this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    this.seconds = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
   }
+
+
 
   onSliderChange(event: any) {
     const slider = event.target;
